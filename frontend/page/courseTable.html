@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>course</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <script src="../static/js/jquery.min.js"></script>
+</head>
+<body onload="loadCourse()">
+    <table class="table table-striped" id="course">
+        <tr>
+            <th>上课日</th>
+            <th>课程ID</th>
+            <th>课程专业</th>
+            <th>课程名称</th>
+            <th>课程年级</th>
+            <th>课程开始时间</th>
+            <th>课程班级</th>
+            <th>课程结束时间</th>
+        </tr>
+    </table>
+    <script>
+        function loadCourse(){
+            var url = "/v1/teacher/courseQuerying";
+            var postBody = {
+                "teacher_id": 1
+            };
+            $.ajax(
+                {
+                   url: url,
+                   type:'post',
+                   data: JSON.stringify(postBody),
+                   contentType: "application/json",
+                   success: function(resp){
+                    if(resp.code == 200){
+                        console.log(resp.data);
+                        var courseWeekDay = resp.data['上课日'];
+                        var courseID = resp.data['课程ID'];
+                        var courseMajor = resp.data['课程专业'];
+                        var courseName = resp.data['课程名称'];
+                        var courseGrade = resp.data['课程年级'];
+                        var courseStartTime = resp.data['课程开始时间'];
+                        var courseClass = resp.data['课程班级'];
+                        var courseEndTime = resp.data['课程结束时间'];
+                        var courseTable = document.getElementById("course");
+                        for(i=0;i<courseWeekDay.length;i++){
+                            $("#course").append(
+                                "<tr>"+
+                                "<td>"+courseWeekDay[i]+"</td>"+
+                                "<td>"+courseID[i]+"</td>"+
+                                "<td>"+courseMajor[i]+"</td>"+
+                                "<td>"+courseName[i]+"</td>"+
+                                "<td>"+courseGrade[i]+"</td>"+
+                                "<td>"+courseStartTime[i]+"</td>"+
+                                "<td>"+courseClass[i]+"</td>"+
+                                "<td>"+courseEndTime[i]+"</td>"+
+                                "</tr>"
+                            )
+                        }
+                    }
+                   },
+                    error: function(resp){
+                        console.error(resp);
+                    }
+                }
+            )
+        }
+    </script>
+</body>
+</html>
