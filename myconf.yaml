@@ -1,0 +1,5 @@
+train : "../../datasets/images"
+val : "../../datasets/images"
+nc : 4
+
+names : ["listening","playing","sleeping","yawn"]

@@ -1,0 +1,25 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "listening"
+    },
+    {
+      "id": 1,
+      "name": "playing"
+    },
+    {
+      "id": 2,
+      "name": "sleeping"
+    },
+    {
+      "id": 3,
+      "name": "yawn"
+    }
+  ],
+  "info": {
+    "year": 2023,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}
