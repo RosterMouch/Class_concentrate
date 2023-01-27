@@ -24,11 +24,7 @@ def ReplayQuery(
     cursor = con.cursor()
 
     excute_sql = f"""
-    SELECT * FROM replay
-    WHERE course_id IN (
-        SELECT course_id from course
-        WHERE teacher_id = {teacher_id}
-    );
+    SELECT * FROM replay;
     """
     response = []
     cursor.execute(excute_sql)

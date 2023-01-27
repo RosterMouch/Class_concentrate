@@ -19,6 +19,7 @@
   <link rel="stylesheet" href="../static/css/free.min.css">
   <link rel="stylesheet" href="../static/css/bootstrap-icons.css">
   <link rel="icon" href="../static/image/09fa513d269759ee22db5315bcfb43166c22df60.ico">
+  <script src="../static/js/echarts.min.js"></script>
 
 
 
@@ -39,11 +40,18 @@
         font-size: 3.5rem;
       }
     }
+    h1{
+      margin-left: 20px;
+    }
+    p{
+      margin-left: 20px;
+    }
   </style>
 
 
   <!-- Custom styles for this template -->
   <link href="../static/css/sidebars.css" rel="stylesheet">
+  <link rel="stylesheet" href="../static/css/grid.css">
 </head>
 
 <body onload="authNotificate()">
@@ -213,7 +221,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" onclick="resetPwd()">提交</button>
           </div>
         </div>
@@ -222,7 +230,7 @@
     <div class="b-example-divider"></div>
     <div class="container" style="margin-top: 20px;" id="course-data-table">
       <div id="toolbar">
-        <button id="remove" class="btn btn-danger" style="margin-right: 26px;">
+        <button id="remove" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteCourse" style="margin-right: 26px;">
           <i class="fa fa-trash"></i> 删除课程
         </button>
         <button id="add" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addCourse">
@@ -241,6 +249,11 @@
         data-show-columns-toggle-all="true" data-detail-view="false" data-show-export="true" data-click-to-select="true"
         data-show-pagination-switch="false" data-pagination="false">
       </table>
+    </div>
+    <div class="container" style="margin-top:20px;display:none" id="summary">
+      <h1 style="margin-top: 20px;">教学回顾</h1>
+      <p class="lead">数据仅选取所有课堂评判结果为集中的对象</p>
+      <p>亲爱的<strong>{{teacher_name}}</strong>老师：</p>
     </div>
     <div class="modal fade" id="addCourse" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
       aria-labelledby="modal-title" aria-hidden="true">
@@ -313,7 +326,7 @@
             </div>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
             <button type="button" class="btn btn-primary" onclick="addCourse()">
               <span id="addcourse-span"></span>
               提交
@@ -322,9 +335,69 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="deleteCourse" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+      aria-labelledby="modal-title" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modal-title">删除课程</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <div class="input-group mb-3">
+              <span class="input-group-text">课程ID</span>
+              <input type="text" id="course-id" class="form-control" placeholder="请输入课程ID：" aria-label="course-id"
+                aria-describedby="course-id">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-danger" onclick="deleteCoure()">
+              <i class="fa fa-trash"></i>
+              确认
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     </div>
     </div>
   </main>
+  <script>
+    function deleteCoure(){
+      var course_id = $("#course-id").val()
+      var deleteBody = {
+        "course_id":parseInt(course_id)
+      }
+      axios.post("/v1/teacher/deleteCourse",deleteBody).then(
+        function (response) {
+          console.log(response)
+          if (response.data.data == true) {
+            $("#deleteCourse").modal("hide")
+            var notify = new Notify({
+              title: "信息",
+              message: "删除成功！",
+            }, "success")
+            setTimeout(function () {
+              notify.close()
+              window.location.reload();
+            }, 2000)
+          } else {
+            $("#deleteCourse").modal("hide")
+            var notify = new Notify({
+              title: "删除失败",
+              message: "课程ID不存在",
+            }, "danger")
+            setTimeout(function () {
+              notify.close()
+            }, 2000)
+          }
+        }
+      ).catch(function (error) {
+        console.log(error)
+      })
+    }
+  </script>
 
   <script>
     function resetPwd() {
@@ -587,6 +660,7 @@
     }
     axios.post(url, replay_postBody)
       .then(function (response) {
+        console.log(response.data.data)
         $table.bootstrapTable({
           data: response.data.data,
           columns: columns
@@ -608,6 +682,7 @@
       $("#course-data-table").removeAttr("style")
       $("#course-data-table").attr("style", "margin-top:20px;")
       $("#replay-data-table").attr("style", "display:none;")
+      $("summary").attr("style", "display:none;")
     })
     $("#replay").click(function () {
       $("#course").removeClass("active");
@@ -619,6 +694,7 @@
       $("#replay-data-table").removeAttr("style")
       $("#replay-data-table").attr("style", "margin-top:20px;")
       $("#course-data-table").attr("style", "display:none;")
+      $("summary").attr("style", "display:none;")
     })
     $("#overview").click(function () {
       $("#replay").removeClass("active");
@@ -629,6 +705,10 @@
       $("#overview").removeClass("text-white");
       $("#course").removeClass("active");
       $("#course").addClass("text-white");
+      $("#summary").removeAttr("style")
+      $("summary").attr("style", "margin-top:20px;")
+      $("#replay-data-table").attr("style", "display:none;")
+      $("#course-data-table").attr("style", "display:none;")
     })
 
     function authNotificate() {
@@ -661,6 +741,74 @@
         console.log(error)
       })
     }
+  </script>
+  <script>
+    var url = "/v1/teacher/allsummary"
+    axios.post(
+      url,{
+        "teacher_id":teacher_id
+      }
+    ).then(
+      function(resp){
+        console.log(resp)
+        var data = resp.data.data
+        console.log(data)
+        $("#summary").append(
+          "<p>&nbsp;&nbsp;&nbsp;&nbsp;截至目前的" + data.course_id.length + "门课程中，"+
+          "您当下所课程学生的课堂注意力分布如下：</p>"+
+          "<div id='sum-pie' style='width:1000px;height:400px;margin-left:20px'></div>"+
+          "<p>祝接下来的时间里教学顺利，不断完善，为我们的学生提供更好的教学资源</p>"+
+          "<strong style='margin-left:20px;'>沈阳大学-课堂注意力分析项目组</strong>"+
+          "<p>敬上</p>"
+        )
+        var sumPie = echarts.init(document.getElementById('sum-pie'));
+        var pieData = []
+        for(var i=0;i<data.course_id.length;i++){
+          pieData.push({
+            value:data.concentrated[i],
+            name:data.course_name[i]
+          })
+        }
+        console.log(pieData)
+        var sumPieOption = {
+          title: {
+            text: '课堂注意力分布',
+            subtext: '截至目前的' + data.course_id.length + '门课程中',
+            x: 'center'
+          },
+          tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b}: {c} ({d}%)"
+          },
+          legend: {
+            orient: 'vertical',
+            left: 10,
+            data: data.course_name
+          },
+          series: [
+            {
+              name: '课堂注意力分布',
+              type: 'pie',
+              radius: "50%",
+              avoidLabelOverlap: false,
+              emphasis: {
+                itemStyle: {
+                  shadowBlur: 10,
+                  shadowOffsetX: 0,
+                  shadowColor: 'rgba(0, 0, 0, 0.5)'
+                }
+              },
+              data: pieData
+            }
+          ]
+        };
+        sumPie.setOption(sumPieOption);
+      }
+    ).catch(
+      function(error){
+        console.log(error)
+      }
+    )
   </script>
 </body>
 

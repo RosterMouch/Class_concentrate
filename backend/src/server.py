@@ -14,6 +14,8 @@ from api.AuthCheck import auth_Check
 from api.InsertCourse import InsertCourse
 from api.ReplayQuery import ReplayQuery
 from api.ResetPwd import resetPwd
+from api.DeleteCourse import DeleteCourse
+from api.Summary import allRank
 import json
 
 config = json.load(open("../config/server.json", "r"))
@@ -124,6 +126,18 @@ def insertCourse():
         }
     return jsonify(resp)
 
+@app.route('/v1/teacher/deleteCourse',methods=['POST'])
+def deleteCourse():
+    data = request.get_json()
+    course_id = data['course_id']
+    result = DeleteCourse(course_id)
+    resp = {
+        'code':200,
+        'msg':'success',
+        'data':result
+    }
+    return jsonify(resp)
+
 @app.route("/v1/teacher/replayQuery",methods=['POST'])
 def replayQuery():
     data = request.get_json()
@@ -135,6 +149,16 @@ def replayQuery():
         'data':result
     }
     return jsonify(resp)
-
+@app.route("/v1/teacher/allsummary",methods=['POST'])
+def allrank():
+    data = request.get_json()
+    teacher_id = data['teacher_id']
+    result = allRank(teacher_id)
+    resp = {
+        'code':200,
+        'msg':'success',
+        'data':result
+    }
+    return jsonify(resp)
 if __name__ == '__main__':
     app.run(host=ip, port=port, debug=debug)
