@@ -1,0 +1,60 @@
+
+=============================
+== Triton Inference Server ==
+=============================
+
+NVIDIA Release 22.12 (build 50109463)
+Triton Server Version 2.29.0
+
+Copyright (c) 2018-2022, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+I0201 10:13:32.469926 1 pinned_memory_manager.cc:240] Pinned memory pool is created at '0x205200000' with size 268435456
+I0201 10:13:32.470148 1 cuda_memory_manager.cc:105] CUDA memory pool is created on device 0 with size 67108864
+I0201 10:13:32.472961 1 server.cc:563] 
++------------------+------+
+| Repository Agent | Path |
++------------------+------+
++------------------+------+
+
+I0201 10:13:32.473001 1 server.cc:590] 
++---------+------+--------+
+| Backend | Path | Config |
++---------+------+--------+
++---------+------+--------+
+
+I0201 10:13:32.473015 1 server.cc:633] 
++-------+---------+--------+
+| Model | Version | Status |
++-------+---------+--------+
++-------+---------+--------+
+
+I0201 10:13:32.501212 1 metrics.cc:864] Collecting metrics for GPU 0: NVIDIA GeForce RTX 2060
+I0201 10:13:32.502113 1 metrics.cc:757] Collecting CPU metrics
+I0201 10:13:32.502314 1 tritonserver.cc:2264] 
++----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Option                           | Value                                                                                                                                                                                                |
++----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| server_id                        | triton                                                                                                                                                                                               |
+| server_version                   | 2.29.0                                                                                                                                                                                               |
+| server_extensions                | classification sequence model_repository model_repository(unload_dependents) schedule_policy model_configuration system_shared_memory cuda_shared_memory binary_tensor_data statistics trace logging |
+| model_repository_path[0]         | /models                                                                                                                                                                                              |
+| model_control_mode               | MODE_NONE                                                                                                                                                                                            |
+| strict_model_config              | 0                                                                                                                                                                                                    |
+| rate_limit                       | OFF                                                                                                                                                                                                  |
+| pinned_memory_pool_byte_size     | 268435456                                                                                                                                                                                            |
+| cuda_memory_pool_byte_size{0}    | 67108864                                                                                                                                                                                             |
+| response_cache_byte_size         | 0                                                                                                                                                                                                    |
+| min_supported_compute_capability | 6.0                                                                                                                                                                                                  |
+| strict_readiness                 | 1                                                                                                                                                                                                    |
+| exit_timeout                     | 30                                                                                                                                                                                                   |
++----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I0201 10:13:32.505448 1 grpc_server.cc:4819] Started GRPCInferenceService at 0.0.0.0:8001
+I0201 10:13:32.505787 1 http_server.cc:3477] Started HTTPService at 0.0.0.0:8000
+I0201 10:13:32.550294 1 http_server.cc:184] Started Metrics Service at 0.0.0.0:8002

@@ -1,0 +1,77 @@
+
+=============================
+== Triton Inference Server ==
+=============================
+
+NVIDIA Release 22.12 (build 50109463)
+Triton Server Version 2.29.0
+
+Copyright (c) 2018-2022, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+I0201 06:18:54.252526 1 pinned_memory_manager.cc:240] Pinned memory pool is created at '0x205200000' with size 268435456
+I0201 06:18:54.252706 1 cuda_memory_manager.cc:105] CUDA memory pool is created on device 0 with size 67108864
+I0201 06:18:54.256699 1 model_lifecycle.cc:459] loading: action_trt:1
+I0201 06:18:54.311668 1 tensorrt.cc:64] TRITONBACKEND_Initialize: tensorrt
+I0201 06:18:54.311709 1 tensorrt.cc:74] Triton TRITONBACKEND API version: 1.10
+I0201 06:18:54.311717 1 tensorrt.cc:80] 'tensorrt' TRITONBACKEND API version: 1.10
+I0201 06:18:54.311721 1 tensorrt.cc:104] backend configuration:
+{"cmdline":{"auto-complete-config":"true","min-compute-capability":"6.000000","backend-directory":"/opt/tritonserver/backends","default-max-batch-size":"4"}}
+I0201 06:18:54.311858 1 tensorrt.cc:211] TRITONBACKEND_ModelInitialize: action_trt (version 1)
+I0201 06:18:54.850985 1 logging.cc:49] Loaded engine size: 90 MiB
+I0201 06:18:55.032300 1 logging.cc:49] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +90, now: CPU 0, GPU 90 (MiB)
+I0201 06:18:55.043610 1 tensorrt.cc:260] TRITONBACKEND_ModelInstanceInitialize: action_trt_0 (GPU device 0)
+I0201 06:18:55.082463 1 logging.cc:49] Loaded engine size: 90 MiB
+I0201 06:18:55.182596 1 logging.cc:49] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +90, now: CPU 0, GPU 90 (MiB)
+I0201 06:18:55.187630 1 logging.cc:49] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +36, now: CPU 0, GPU 126 (MiB)
+W0201 06:18:55.187677 1 logging.cc:46] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage. See `CUDA_MODULE_LOADING` in https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#env-vars
+I0201 06:18:55.188524 1 instance_state.cc:187] Created instance action_trt_0 on GPU 0 with stream priority 0 and optimization profile default[0];
+I0201 06:18:55.220678 1 model_lifecycle.cc:694] successfully loaded 'action_trt' version 1
+I0201 06:18:55.220789 1 server.cc:563] 
++------------------+------+
+| Repository Agent | Path |
++------------------+------+
++------------------+------+
+
+I0201 06:18:55.220823 1 server.cc:590] 
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Backend  | Path                                                      | Config                                                                                                                                                        |
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| tensorrt | /opt/tritonserver/backends/tensorrt/libtriton_tensorrt.so | {"cmdline":{"auto-complete-config":"true","min-compute-capability":"6.000000","backend-directory":"/opt/tritonserver/backends","default-max-batch-size":"4"}} |
++----------+-----------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I0201 06:18:55.220850 1 server.cc:633] 
++------------+---------+--------+
+| Model      | Version | Status |
++------------+---------+--------+
+| action_trt | 1       | READY  |
++------------+---------+--------+
+
+I0201 06:18:55.241102 1 metrics.cc:864] Collecting metrics for GPU 0: NVIDIA GeForce RTX 2060
+I0201 06:18:55.241852 1 metrics.cc:757] Collecting CPU metrics
+I0201 06:18:55.242024 1 tritonserver.cc:2264] 
++----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Option                           | Value                                                                                                                                                                                                |
++----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| server_id                        | triton                                                                                                                                                                                               |
+| server_version                   | 2.29.0                                                                                                                                                                                               |
+| server_extensions                | classification sequence model_repository model_repository(unload_dependents) schedule_policy model_configuration system_shared_memory cuda_shared_memory binary_tensor_data statistics trace logging |
+| model_repository_path[0]         | /models                                                                                                                                                                                              |
+| model_control_mode               | MODE_NONE                                                                                                                                                                                            |
+| strict_model_config              | 0                                                                                                                                                                                                    |
+| rate_limit                       | OFF                                                                                                                                                                                                  |
+| pinned_memory_pool_byte_size     | 268435456                                                                                                                                                                                            |
+| cuda_memory_pool_byte_size{0}    | 67108864                                                                                                                                                                                             |
+| response_cache_byte_size         | 0                                                                                                                                                                                                    |
+| min_supported_compute_capability | 6.0                                                                                                                                                                                                  |
+| strict_readiness                 | 1                                                                                                                                                                                                    |
+| exit_timeout                     | 30                                                                                                                                                                                                   |
++----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+E0201 06:18:55.243996263       1 chttp2_server.cc:1080]      UNKNOWN:No address added out of total 1 resolved for '0.0.0.0:8001' {created_time:"2023-02-01T06:18:55.243733762+00:00", children:[UNKNOWN:Failed to add any wildcard listeners {created_time:"2023-02-01T06:18:55.24335116+00:00", children:[UNKNOWN:Unable to configure socket {fd:12, created_time:"2023-02-01T06:18:55.24329816+00:00", children:[UNKNOWN:Address already in use {created_time:"2023-02-01T06:18:55.24323346+00:00", errno:98, os_error:"Address already in use", syscall:"bind"}]}, UNKNOWN:Unable to configure socket {fd:12, created_time:"2023-02-01T06:18:55.24334766+00:00", children:[UNKNOWN:Address already in use {created_time:"2023-02-01T06:18:55.24334156+00:00", errno:98, os_error:"Address already in use", syscall:"bind"}]}]}]}
+E0201 06:18:55.244552 1 main.cc:870] failed to start GRPC service: Unavailable - Socket '0.0.0.0:8001' already in use 
