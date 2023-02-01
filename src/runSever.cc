@@ -45,7 +45,7 @@ int main(int argc,char *argv [])
         cout << "[INFO] Found model repository,try booting Triton Server..." << endl;
     }
     string dockerBootcmd = "nohup docker run --gpus=";
-    dockerBootcmd = dockerBootcmd + gpuStatus + " --rm -p8000:8000 -p8001:8001 -p8002:8002 -v $(pwd)/../model_repository:/models nvcr.io/nvidia/tritonserver:22.12-py3 tritonserver --model-repository=/models >> ../logs/" + ".log &";
+    dockerBootcmd = dockerBootcmd + gpuStatus + " --rm -p8000:8000 -p8001:8001 -p8002:8002 -v $(pwd)/../model_repository:/models nvcr.io/nvidia/tritonserver:22.12-py3 tritonserver --model-repository=/models >> ../logs/" + logPath + ".log &";
     const int run = system(dockerBootcmd.c_str());
     if(run == 0){
         cout << "[INFO] Triton Sever boot sucessfully!Check full logs at : ../logs/" << logPath << ".log" << endl;

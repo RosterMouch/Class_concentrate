@@ -1,0 +1,98 @@
+
+=============================
+== Triton Inference Server ==
+=============================
+
+NVIDIA Release 22.12 (build 50109463)
+Triton Server Version 2.29.0
+
+Copyright (c) 2018-2022, NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+Various files include modifications (c) NVIDIA CORPORATION & AFFILIATES.  All rights reserved.
+
+This container image and its contents are governed by the NVIDIA Deep Learning Container License.
+By pulling and using the container, you accept the terms and conditions of this license:
+https://developer.nvidia.com/ngc/nvidia-deep-learning-container-license
+
+I0201 13:17:02.000489 1 pinned_memory_manager.cc:240] Pinned memory pool is created at '0x205200000' with size 268435456
+I0201 13:17:02.000654 1 cuda_memory_manager.cc:105] CUDA memory pool is created on device 0 with size 67108864
+I0201 13:17:02.004328 1 model_lifecycle.cc:459] loading: action_onnx:1
+I0201 13:17:02.004413 1 model_lifecycle.cc:459] loading: action_trt:1
+I0201 13:17:02.005746 1 onnxruntime.cc:2459] TRITONBACKEND_Initialize: onnxruntime
+I0201 13:17:02.005779 1 onnxruntime.cc:2469] Triton TRITONBACKEND API version: 1.10
+I0201 13:17:02.005788 1 onnxruntime.cc:2475] 'onnxruntime' TRITONBACKEND API version: 1.10
+I0201 13:17:02.005792 1 onnxruntime.cc:2505] backend configuration:
+{"cmdline":{"auto-complete-config":"true","min-compute-capability":"6.000000","backend-directory":"/opt/tritonserver/backends","default-max-batch-size":"4"}}
+I0201 13:17:02.017567 1 onnxruntime.cc:2563] TRITONBACKEND_ModelInitialize: action_onnx (version 1)
+I0201 13:17:02.018101 1 onnxruntime.cc:666] skipping model configuration auto-complete for 'action_onnx': inputs and outputs already specified
+I0201 13:17:02.059773 1 tensorrt.cc:64] TRITONBACKEND_Initialize: tensorrt
+I0201 13:17:02.059817 1 tensorrt.cc:74] Triton TRITONBACKEND API version: 1.10
+I0201 13:17:02.059825 1 tensorrt.cc:80] 'tensorrt' TRITONBACKEND API version: 1.10
+I0201 13:17:02.059829 1 tensorrt.cc:104] backend configuration:
+{"cmdline":{"auto-complete-config":"true","min-compute-capability":"6.000000","backend-directory":"/opt/tritonserver/backends","default-max-batch-size":"4"}}
+I0201 13:17:02.060017 1 onnxruntime.cc:2606] TRITONBACKEND_ModelInstanceInitialize: action_onnx_0 (GPU device 0)
+I0201 13:17:03.357421 1 onnxruntime.cc:2640] TRITONBACKEND_ModelInstanceFinalize: delete instance state
+I0201 13:17:03.357469 1 tensorrt.cc:211] TRITONBACKEND_ModelInitialize: action_trt (version 1)
+I0201 13:17:03.357621 1 onnxruntime.cc:2586] TRITONBACKEND_ModelFinalize: delete model state
+E0201 13:17:03.357679 1 model_lifecycle.cc:597] failed to load 'action_onnx' version 1: Invalid argument: model 'action_onnx', tensor 'images': for the model to support batching the shape should have at least 1 dimension and the first dimension must be -1; but shape expected by the model is [1,3,640,640]
+I0201 13:17:03.920675 1 logging.cc:49] Loaded engine size: 90 MiB
+I0201 13:17:04.149066 1 logging.cc:49] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +90, now: CPU 0, GPU 90 (MiB)
+I0201 13:17:04.161055 1 tensorrt.cc:260] TRITONBACKEND_ModelInstanceInitialize: action_trt_0 (GPU device 0)
+I0201 13:17:04.209786 1 logging.cc:49] Loaded engine size: 90 MiB
+I0201 13:17:04.287917 1 logging.cc:49] [MemUsageChange] TensorRT-managed allocation in engine deserialization: CPU +0, GPU +90, now: CPU 0, GPU 90 (MiB)
+I0201 13:17:04.292520 1 logging.cc:49] [MemUsageChange] TensorRT-managed allocation in IExecutionContext creation: CPU +0, GPU +36, now: CPU 0, GPU 126 (MiB)
+W0201 13:17:04.292576 1 logging.cc:46] CUDA lazy loading is not enabled. Enabling it can significantly reduce device memory usage. See `CUDA_MODULE_LOADING` in https://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#env-vars
+I0201 13:17:04.294301 1 instance_state.cc:187] Created instance action_trt_0 on GPU 0 with stream priority 0 and optimization profile default[0];
+I0201 13:17:04.295016 1 model_lifecycle.cc:694] successfully loaded 'action_trt' version 1
+I0201 13:17:04.295305 1 server.cc:563] 
++------------------+------+
+| Repository Agent | Path |
++------------------+------+
++------------------+------+
+
+I0201 13:17:04.295372 1 server.cc:590] 
++-------------+-----------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Backend     | Path                                                            | Config                                                                                                                                                        |
++-------------+-----------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| onnxruntime | /opt/tritonserver/backends/onnxruntime/libtriton_onnxruntime.so | {"cmdline":{"auto-complete-config":"true","min-compute-capability":"6.000000","backend-directory":"/opt/tritonserver/backends","default-max-batch-size":"4"}} |
+| tensorrt    | /opt/tritonserver/backends/tensorrt/libtriton_tensorrt.so       | {"cmdline":{"auto-complete-config":"true","min-compute-capability":"6.000000","backend-directory":"/opt/tritonserver/backends","default-max-batch-size":"4"}} |
++-------------+-----------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I0201 13:17:04.295443 1 server.cc:633] 
++-------------+---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Model       | Version | Status                                                                                                                                                                                                                                 |
++-------------+---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| action_onnx | 1       | UNAVAILABLE: Invalid argument: model 'action_onnx', tensor 'images': for the model to support batching the shape should have at least 1 dimension and the first dimension must be -1; but shape expected by the model is [1,3,640,640] |
+| action_trt  | 1       | READY                                                                                                                                                                                                                                  |
++-------------+---------+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I0201 13:17:04.321528 1 metrics.cc:864] Collecting metrics for GPU 0: NVIDIA GeForce RTX 2060
+I0201 13:17:04.322398 1 metrics.cc:757] Collecting CPU metrics
+I0201 13:17:04.322627 1 tritonserver.cc:2264] 
++----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Option                           | Value                                                                                                                                                                                                |
++----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| server_id                        | triton                                                                                                                                                                                               |
+| server_version                   | 2.29.0                                                                                                                                                                                               |
+| server_extensions                | classification sequence model_repository model_repository(unload_dependents) schedule_policy model_configuration system_shared_memory cuda_shared_memory binary_tensor_data statistics trace logging |
+| model_repository_path[0]         | /models                                                                                                                                                                                              |
+| model_control_mode               | MODE_NONE                                                                                                                                                                                            |
+| strict_model_config              | 0                                                                                                                                                                                                    |
+| rate_limit                       | OFF                                                                                                                                                                                                  |
+| pinned_memory_pool_byte_size     | 268435456                                                                                                                                                                                            |
+| cuda_memory_pool_byte_size{0}    | 67108864                                                                                                                                                                                             |
+| response_cache_byte_size         | 0                                                                                                                                                                                                    |
+| min_supported_compute_capability | 6.0                                                                                                                                                                                                  |
+| strict_readiness                 | 1                                                                                                                                                                                                    |
+| exit_timeout                     | 30                                                                                                                                                                                                   |
++----------------------------------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+I0201 13:17:04.322670 1 server.cc:264] Waiting for in-flight requests to complete.
+I0201 13:17:04.322714 1 server.cc:280] Timeout 30: Found 0 model versions that have in-flight inferences
+I0201 13:17:04.322775 1 server.cc:295] All models are stopped, unloading models
+I0201 13:17:04.322804 1 server.cc:302] Timeout 30: Found 1 live models and 0 in-flight non-inference requests
+I0201 13:17:04.322956 1 tensorrt.cc:298] TRITONBACKEND_ModelInstanceFinalize: delete instance state
+I0201 13:17:04.324385 1 tensorrt.cc:237] TRITONBACKEND_ModelFinalize: delete model state
+I0201 13:17:04.335724 1 model_lifecycle.cc:579] successfully unloaded 'action_trt' version 1
+I0201 13:17:05.322929 1 server.cc:302] Timeout 29: Found 0 live models and 0 in-flight non-inference requests
+error: creating server: Internal - failed to load all models
