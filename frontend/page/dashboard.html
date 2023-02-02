@@ -683,7 +683,7 @@
       $("#course-data-table").removeAttr("style")
       $("#course-data-table").attr("style", "margin-top:20px;")
       $("#replay-data-table").attr("style", "display:none;")
-      $("summary").attr("style", "display:none;")
+      $("#summary").attr("style", "display:none;")
     })
     $("#replay").click(function () {
       $("#course").removeClass("active");
@@ -695,7 +695,7 @@
       $("#replay-data-table").removeAttr("style")
       $("#replay-data-table").attr("style", "margin-top:20px;")
       $("#course-data-table").attr("style", "display:none;")
-      $("summary").attr("style", "display:none;")
+      $("#summary").attr("style", "display:none;")
     })
     $("#overview").click(function () {
       $("#replay").removeClass("active");
@@ -707,7 +707,7 @@
       $("#course").removeClass("active");
       $("#course").addClass("text-white");
       $("#summary").removeAttr("style")
-      $("summary").attr("style", "margin-top:20px;")
+      $("#summary").attr("style", "margin-top:20px;")
       $("#replay-data-table").attr("style", "display:none;")
       $("#course-data-table").attr("style", "display:none;")
     })
