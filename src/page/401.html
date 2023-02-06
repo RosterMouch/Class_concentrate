@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+  <meta name="info" content="This page is based on Bootstrap ui template">
+  <meta name="generator" content="Hugo 0.88.1">
+  <title>非法访问检测</title>
+
+
+
+
+  <!-- Bootstrap core CSS -->
+  <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+
+
+</head>
+
+<body>
+
+  <main class="container">
+    <div class="bg-light p-5 rounded mt-3">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16" style="float: left;margin-right:10px;margin-top:2px">
+        <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+      </svg>
+      <h1 style="position: relative;">检测到非法访问进入！</h1>
+      <p class="lead">
+        捕捉到401非法请求，造成此页面的原因可能是：
+        <br>
+        您的登录状态已过期或未登录并记录状态，请重新登录！
+        <br>
+        3秒后将自动跳转到登录页面！
+      </p>
+    </div>
+  </main>
+  <script>
+    setTimeout(() => { window.location.href = '../index' }, 3000);
+  </script>
+
+</body>
+
+</html>

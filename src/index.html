@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.88.1">
+    <title>Signin Template · Bootstrap v5.1</title>
+
+    <script src="./static/js/axios.min.js"></script>
+    <script src="./static/js/bootstrap.bundle.min.js"></script>
+    <script src="./static/js/jquery.min.js"></script>
+    <script src="./static/js/notify.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="./static/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="./static/css/signin.css">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+
+    
+    <!-- Custom styles for this template -->
+    <link href="signin.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    
+    <main class="form-signin">
+      <form>
+        <img class="mb-4" src="./static/image/student-title.png" alt="" width="90" height="90">
+        <h1 class="h3 mb-3 fw-normal">欢迎登录学生端平台</h1>
+
+        <div class="form-floating">
+            <input type="text" class="form-control" id="student_id" placeholder="xxxxxxx">
+            <label for="floatingInput">请输入学生ID：</label>
+        </div>
+        <br>
+        <div class="form-floating">
+            <input type="password" class="form-control" id="student_pwd" placeholder="xxxxx">
+            <label for="floatingPassword">请输入密码：</label>
+        </div>
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" value="remember-me"> 记住我的登录
+            </label>
+        </div>
+        <button type="button" class="btn btn-primary btn-lg">
+            <span id="login-span"></span>
+            <a id="btn_post" onclick="login()">登录</a>
+        </button>
+        <p class="mt-5 mb-3 text-muted">&copy;copyright 沈阳大学应用技术学院</p>
+      </form>
+    </main>    
+  </body>
+  <script type="text/javascript">
+    function login() {
+            $("#login-span").attr("class", "spinner-border spinner-border-sm");
+            $("#login-span").attr("role", "status");
+            $("#login-span").attr("aria-hidden", "true");
+            $(".btn-lg").attr("disabled");
+            var student_id = $("#student_id").val();
+            var student_pwd = $("#student_pwd").val();
+            var postBody = {
+                'student_id': student_id,
+                'student_pwd': student_pwd
+            };
+            var url = "http://192.168.174.11:8080/v1/student/login";
+            if (student_id == '' || student_pwd == ''){
+                var notify = new Notify({
+                    title:"参数错误",
+                    message:"账号密码不能为空"
+                },"danger");
+                $("#login-span").removeClass("spinner-border spinner-border-sm");
+                $("#login-span").removeAttr("role");
+                $("#login-span").removeAttr("aria-hidden");
+                setTimeout(function () {
+                    notify.close();
+                }, 2000);;
+            } else {
+                axios.post(url, postBody).then(function (response) {
+                    if (typeof (response.data.data) != "string") {
+                        var notify = new Notify({
+                            title:"登录成功",
+                            message:"正在问您跳转"
+                        });
+                        var cookie_keys = ["student_id","student_name","student_class","student_grade"];
+                        for(i = 0;i<response.data.data.length;i++){
+                            document.cookie=cookie_keys[i]+"="+response.data.data[i]+";";
+                        }
+                        setTimeout(function () {
+                            notify.close();
+                            window.location.href = "/page/dashboard";
+                        }, 2000);;
+                    } else {
+                        var notify = new Notify({
+                            title:"登录失败",
+                            message:"请检查您的账号密码"
+                        },"danger");
+                        $("#login-span").removeClass("spinner-border spinner-border-sm");
+                        $("#login-span").removeAttr("role");
+                        $("#login-span").removeAttr("aria-hidden");
+                        setTimeout(function () {
+                            notify.close();
+                        }, 2000);;
+                    }
+                }).catch(function (error) {
+                    var notify = new Notify({
+                        title:"登录失败",
+                        message:"请检查您的网络连接是否正常，重试后仍然失败请联系管理员"
+                    },"danger");
+                    setTimeout(function () {
+                        notify.close();
+                    }, 2000);;
+                });
+            }
+        }
+  </script>
+</html>
