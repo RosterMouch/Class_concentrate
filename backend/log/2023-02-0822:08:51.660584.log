@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/root/attetionTest/teacher/backend/./src/server.py", line 13, in <module>
+    from api import CourseQuerying
+  File "/root/attetionTest/teacher/backend/api/CourseQuerying.py", line 9, in <module>
+    config = json.load(open('../config/db.json', 'r'))
+FileNotFoundError: [Errno 2] No such file or directory: '../config/db.json'

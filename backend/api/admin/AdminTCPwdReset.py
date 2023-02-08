@@ -1,11 +1,10 @@
-#Author: Elin
-#Date: 2023-01-23 13:56:44
- #Last Modified by:   Elin 
- #Last Modified time: 2023-01-23 13:56:44 
+#Author:Elin 
+#Create Time:2023-02-08 10:47:04
+#Last Modified By:Elin
+#Update Time:2023-02-08 10:47:04
 import pymysql as sql
 from hashlib import sha256
 import json
-from pymysql.err import InterfaceError
 
 config = json.load(open('../config/db.json', 'r'))
 ip = config['server']['ip']
@@ -13,9 +12,10 @@ db = config['database']['db']
 user = config['database']['user']
 password = config['database']['pwd']
 charset = config['database']['charset']
+
 con = sql.connect(host=ip, user=user, password=password, db=db, charset=charset)
 
-def resetPwd(
+def resetTCPwd(
     teacher_id,old_pwd,new_pwd
 ):
     cursor = con.cursor()

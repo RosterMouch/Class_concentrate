@@ -1,9 +1,11 @@
-#Author: Elin
-#Date: 2023-01-24 10:47:09
- #Last Modified by:   Elin 
- #Last Modified time: 2023-01-24 10:47:09 
+#Author:Elin 
+#Create Time:2023-02-08 20:50:25
+#Last Modified By:Elin
+#Update Time:2023-02-08 20:50:25
+  
+  
 import pymysql as sql
-from hashlib import md5
+from hashlib import sha256
 import json
 
 config = json.load(open('../config/db.json', 'r'))
@@ -14,15 +16,13 @@ password = config['database']['pwd']
 charset = config['database']['charset']
 
 con = sql.connect(host=ip, user=user, password=password, db=db, charset=charset)
-con.autocommit(True)
-def DeleteCourse(
-    course_id,
-):
+
+def deleteStudent(student_id):
     cursor = con.cursor()
     runSucess = None
     excute_sql = [
     "set foreign_key_checks = 0;",
-    f"DELETE FROM course WHERE course_id = {course_id};",
+    f"""DELETE FROM STUDENT WHERE student_id = {student_id};""",
     "set foreign_key_checks = 1;"]
     for i in range(len(excute_sql)):
         cursor.execute(excute_sql[i])
@@ -31,5 +31,6 @@ def DeleteCourse(
                 con.commit()
                 runSucess = True
             else:
+                con.commit()
                 runSucess = False
     return runSucess

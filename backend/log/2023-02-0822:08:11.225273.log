@@ -1,0 +1,5 @@
+./src/server.py: line 7: from: command not found
+./src/server.py: line 8: from: command not found
+./src/server.py: line 9: import: command not found
+./src/server.py: line 11: syntax error near unexpected token `('
+./src/server.py: line 11: `current_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))'
