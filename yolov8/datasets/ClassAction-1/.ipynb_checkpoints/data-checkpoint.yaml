@@ -1,0 +1,15 @@
+names:
+- Listening
+- Playing
+- Sleeping
+- Yawning
+nc: 4
+roboflow:
+  license: CC BY 4.0
+  project: classaction
+  url: https://universe.roboflow.com/elinswork/classaction/dataset/1
+  version: 1
+  workspace: elinswork
+test: ../test/images
+train: ClassAction-1/train/images
+val: ClassAction-1/valid/images

@@ -1,0 +1,10 @@
+train: "ClassAction-1/train/images/"
+test: "ClassAction-1/test/images"
+val: "ClassAction-1/valid/images"
+
+names:
+- Listening
+- Playing
+- Sleeping
+- Yawning
+nc: 4
